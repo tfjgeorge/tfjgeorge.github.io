@@ -6,12 +6,6 @@ lyx: true
 draft: false 
 categories: [note]
 ---
-<h1 class="title">
-The algebra of second order methods in neural networks
-</h1>
-<h2 class="author">
-Thomas George
-</h2>
 <p class="Unindented">
 This note gives the derivations for the inverse of 2 different but related 2nd order matrices: the Fisher Information Matrix, and the Gauss-Newton approximation of the Hessian. In particular we highlight 2 centering properties that follow from the local structure of those matrices:
 </p>

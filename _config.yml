@@ -1,9 +1,9 @@
 # Note: If you want to deploy to a GitHub user site (user.github.io), change baseurl to /
 baseurl: 
-title: tufte-css-jekyll
+subtitle: by Thomas George
 # Whether the header (with large title and subtitle) should be displayed
-header: false 
-subtitle: Deep learning thoughts
+header: true
+title: A research blog about the optimization of neural networks
 author: Thomas George
 email: tfjgeorge [at] gmail [dot]
 description: Research blog by Thomas George

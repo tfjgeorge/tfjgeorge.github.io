@@ -353,11 +353,11 @@ blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
                    color: $contrast-color;
                    top: 0rem; } //removed superscripting for numerical reference in sidenote
 
-p, footer, div.table-wrapper, div.mathblock{ width: 55%; }
+p, footer, #disqus_thread, div.table-wrapper, div.mathblock{ width: 55%; }
 
 div.table-wrapper { overflow-x: auto; } //changed all overflow values to 'auto' so scroll bars appear only as needed
 
-@media screen and (max-width: 760px) { p, footer,div.mathblock { width: 90%; }
+@media screen and (max-width: 760px) { p, #disqus_thread, footer,div.mathblock { width: 90%; }
                                        pre code { width: 87.5%; }
                                        ul { width: 85%; }
                                        figure { max-width: 90%; }
@@ -425,7 +425,7 @@ label.margin-toggle:not(.sidenote-number) { display: none; }
 .larger { font-size: 2.8rem;}
 //Nav and Footer styling area
 
-header > nav.group, body footer {
+header > nav.group, body footer, #disqus_thread {
   width: 95%;
   padding-top: 2rem;
 }

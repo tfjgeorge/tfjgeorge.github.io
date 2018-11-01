@@ -1,11 +1,41 @@
 ---
-layout: full-width
-title: About
-weight: 1
+layout: default
+title: Home
 ---
 
-*tufte-css-jekyll* is a theme based on [*tufte-css*](https://github.com/edwardtufte/tufte-css), which in turn implements the design ideas of Edward Tufte in CSS, and [*tufte-jekyll*](https://github.com/clayh53/tufte-jekyll) (but tries to stick more closely to the original tufte-css styles than the latter).
+I am a Phd student interested in optimization applied to (deep) neural networks, under the supervision of [Pascal Vincent](http://www.iro.umontreal.ca/~vincentp/) at [MILA](https://mila.umontreal.ca/). This website is intended at sharing some notes or short articles that I wrote during my exploration of deep learning.
 
-Note that this is a full-width layout. This was accomplished by including ```layout: full-width``` in the YAML front matter for this page, i.e., no sidenotes or marginnotes! 
+For a list of publications, please refer to [scholar](https://scholar.google.fr/citations?user=pc3_ujYAAAAJ).
 
-If you want to know what Tufte style comprises, have a look at the [Tufte CSS](./page/) page.
+## Notes
+<ul>
+  {% for post in site.categories.note %}
+    {% if post.draft != true %}
+      <li>
+        <a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+## Older notes
+
+These notes were written during the courses deep learning by Yoshua Bengio, and computer vision by Roland Memisevitch.
+
+### Notes for course ift6268 computer vision
+<ul>
+  {% for post in site.categories.ift6268 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})
+    </li>
+  {% endfor %}
+</ul>
+
+### Notes for course ift6266 deep learning
+<ul>
+  {% for post in site.categories.ift6266 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }})
+    </li>
+  {% endfor %}
+</ul>

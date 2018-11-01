@@ -1,12 +1,12 @@
 # Note: If you want to deploy to a GitHub user site (user.github.io), change baseurl to /
-baseurl: /tufte-css-jekyll
+baseurl: 
 title: tufte-css-jekyll
 # Whether the header (with large title and subtitle) should be displayed
-header: true
-subtitle: A Jekyll theme based on tufte-css
-author: Stephan Druskat
-email: mail [at] sdruskat [dot]
-description: A Jekyll theme based on tufte-css
+header: false 
+subtitle: Deep learning thoughts
+author: Thomas George
+email: tfjgeorge [at] gmail [dot]
+description: Research blog by Thomas George
 markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 highlighter: rouge

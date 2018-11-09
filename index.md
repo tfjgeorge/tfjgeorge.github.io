@@ -7,6 +7,10 @@ I am a Phd student interested in optimization applied to (deep) neural networks,
 
 For a list of publications, please refer to [scholar](https://scholar.google.fr/citations?user=pc3_ujYAAAAJ).
 
+## Recent highlights 
+
+ - [Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis](https://arxiv.org/abs/1806.03884) - NIPS 2018
+
 ## Notes
 <ul>
   {% for post in site.categories.note %}

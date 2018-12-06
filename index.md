@@ -9,7 +9,7 @@ For a list of publications, please refer to [scholar](https://scholar.google.fr/
 
 ## Recent highlights 
 
- - [Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis](https://arxiv.org/abs/1806.03884) - NIPS 2018
+ - [Fast Approximate Natural Gradient Descent in a Kronecker-factored Eigenbasis](http://papers.nips.cc/paper/8164-fast-approximate-natural-gradient-descent-in-a-kronecker-factored-eigenbasis) - NIPS 2018 - [Poster](/assets/docs/EKFAC-NeurIPS2018.pdf)
 
 ## Notes
 <ul>

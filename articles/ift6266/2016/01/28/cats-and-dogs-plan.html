@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Cats and dogs - Working plan</title>
+  <meta name="description" content="During the winter semester, I will be working on the cats and dogs dataset which purpose is to build a machine learning system that recognizes images and cla...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    styles: {
+  	'.MathJax_Preview' : { color: 'black' }
+    }
+  });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <link rel="stylesheet" type="text/css" href="/css/latex.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/ift6266/2016/01/28/cats-and-dogs-plan.html">
+
+  <link rel="alternate" type="application/rss+xml" title="A research blog about the optimization of neural networks" href="/feed.xml" />
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+	
+		<h1 class="header-title"><a href="/">A research blog about the optimization of neural networks</a></h1>
+		
+			<h2 class="header-subtitle">by Thomas George</h2>
+		
+	
+
+    <nav class="group">
+	
+	
+		
+		    
+		      <a href="/">Home</a>
+		    
+	    
+  	
+		
+  	
+		
+  	
+		
+  	
+		
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>Cats and dogs - Working plan</h1>
+<p class="subtitle">January 28, 2016</p>
+
+<p>During the winter semester, I will be working on the cats and dogs dataset which purpose is to build a machine learning system that recognizes images and classifies them as containing a cat or a dog.</p>
+
+<p>This post is a draft of some ideas I am planning to implement. Some may be discarded because of lack of time or being replaced by a better one.</p>
+
+<h2 id="simple-convolutional-network">Simple convolutional network</h2>
+
+<p>First, I will implement a simple feed forward network using convolutions as it first layers. Starting from this, I will be able to study the <strong>influence of several hyperparameters</strong> such as :</p>
+
+<ul>
+  <li>number of layers</li>
+  <li>number of filters</li>
+  <li>size of the convolutions</li>
+  <li>activations</li>
+  <li>cost function</li>
+</ul>
+
+<p>Second, since the dataset is limited in size (and not that big), we can use <strong>data augmentation</strong> as a way to present new examples to our training procedure, which will allow better generalization:</p>
+
+<ul>
+  <li>crop, rotate images</li>
+  <li>mask areas of the image</li>
+  <li>merge images ? (of the same class obviously)</li>
+  <li>use adversarial examples that apply worst case noise that fool the network: <a href="http://arxiv.org/pdf/1412.6572v3.pdf">Explaining and harnessing adversarial examples</a></li>
+</ul>
+
+<h2 id="next-steps">Next steps</h2>
+
+<h3 id="pretraining">Pretraining</h3>
+
+<p>Unsupervised pre training for instance using <strong>denoising auto encoders</strong> may help to train faster, and to converge to a better solution.</p>
+
+<h3 id="misclassified-examples">Misclassified examples</h3>
+
+<p>At some point it can be interesting to visualize misclassified examples and answer some questions about them:</p>
+
+<ul>
+  <li>are they the same with different initializations but same network?</li>
+  <li>are they the same with different models ?</li>
+  <li>try to understand why I as a human succeed where a convolutional network fails</li>
+</ul>
+
+<p>I hope this will inspire me for new algorithms and data augmentation procedure. If different models misclassify different images then I may be able to use some <strong>ensemble methods</strong> to reduce the overall misclassification error.</p>
+
+<h2 id="exploratory-work">Exploratory work</h2>
+
+<p>These are some recent ideas that where published during the last year. I am interested in getting hands-on experience for the following papers:</p>
+
+<ul>
+  <li><strong>Residual learning</strong> is a technique that make the training easier so it enables the building of much deeper networks <a href="http://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition</a></li>
+  <li><strong>Visual attention</strong> networks <a href="http://arxiv.org/pdf/1406.6247v1.pdf">Recurrent Models of Visual Attention</a></li>
+  <li><strong>Ladder networks</strong> <a href="http://arxiv.org/pdf/1507.02672v2.pdf">Semi-Supervised Learning with Ladder Networks</a></li>
+  <li>Can the discriminative part of a <a href="http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf">Generative Adversarial Nets</a> be used as pretrained first layers to which we add some classification layers ?</li>
+</ul>
+
+<p>Edit 04/02/16: Added adversarial data augmentation</p>
+
+
+
+
+    </article>
+    <span class="print-footer">Cats and dogs - Working plan - January 28, 2016 - Thomas George</span>
+    <footer>
+  <hr class="slender">
+<div class="credits">
+<span>&copy; 2019 
+  
+		<a href="mailto:tfjgeorge [at] gmail [dot]">Thomas George</a></span></br> <br>    
+    
+
+<span>Created with <a href="//jekyllrb.com">Jekyll</a> and the theme <a href="//github.com/sdruskat/tufte-css-jekyll">tufte-css-jekyll</a>.</span> 
+</div>  
+</footer>
+    
+      <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-99149577-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Cats and dogs - Some better results</title>
+  <meta name="description" content="My last post was followed by a long time without much activity, the main reason being that I focused on a very interesting Kaggle competition that just ended...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    styles: {
+  	'.MathJax_Preview' : { color: 'black' }
+    }
+  });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <link rel="stylesheet" type="text/css" href="/css/latex.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/ift6266/2016/03/17/cats-and-dogs-some-better-results.html">
+
+  <link rel="alternate" type="application/rss+xml" title="A research blog about the optimization of neural networks" href="/feed.xml" />
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+	
+		<h1 class="header-title"><a href="/">A research blog about the optimization of neural networks</a></h1>
+		
+			<h2 class="header-subtitle">by Thomas George</h2>
+		
+	
+
+    <nav class="group">
+	
+	
+		
+		    
+		      <a href="/">Home</a>
+		    
+	    
+  	
+		
+  	
+		
+  	
+		
+  	
+		
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>Cats and dogs - Some better results</h1>
+<p class="subtitle">March 17, 2016</p>
+
+<p>My last post was followed by a long time without much activity, the main reason being that I focused on a very interesting Kaggle competition that just ended. A blog post is coming.</p>
+
+<p>That being said, my last implementation before that break was a network inspired by vggnet for which I get some interesting results. Here are the learning curves followed by some remarks.</p>
+
+<p><img src="/img/2016-03-17-cats-and-dogs-some-better-results/loss.png" alt="Loss" />
+<img src="/img/2016-03-17-cats-and-dogs-some-better-results/error.png" alt="Error" /></p>
+
+<p>Yeah 0% validation error ! (argument below)</p>
+
+<h1 id="network-architecture">Network architecture</h1>
+
+<p>This network is based on the paper from the team that won ImageNet 2014 with their vggnet. It consists in stacking convolution layers with small filters and downsampling with maxpool every couple of layers. Here is the complete architecture from input to output:</p>
+
+<ul>
+  <li>2 convolutions layers with 32 (3, 3) filters</li>
+  <li>maxpool</li>
+  <li>3 convolutions layers with 64 (3, 3) filters</li>
+  <li>maxpool</li>
+  <li>4 convolutions layers with 128 (3, 3) filters</li>
+  <li>maxpool</li>
+  <li>fully connected layer with 500 hidden units</li>
+  <li>sigmoid</li>
+</ul>
+
+<p>You can find this architecture implemented <a href="https://github.com/tfjgeorge/ift6266/blob/f5e5206994f0082dc3dd2536f33f6f527a0eb76b/catsdogs/models/vggnet.py">here</a></p>
+
+<h1 id="some-remarks">Some remarks</h1>
+
+<h2 id="nans">NaNs</h2>
+
+<p>Similar to <a href="https://florianbordes.wordpress.com/2016/02/16/cats-vs-dogs-2-error-rate-10/">Florian</a>, I find that Adam optimizer is very powerful in terms of finding a good solution in a minimal number of epochs, but it also reaches a NaN value at some point. In <a href="https://github.com/mila-udem/blocks-examples/blob/master/reverse_words/__init__.py">one of the block examples</a> first committed by Bart there is a trick which consists of just stopping the training as soon as the gradient contains a NaN.</p>
+
+<p>I would be interested though in knowing where this NaNs come from and how to avoir getting NaNs too early in the learning.</p>
+
+<p>In my case the loss curve stop being plotted when a NaN is reached, and the validation error goes to 0 because of the way it is computed.</p>
+
+<h2 id="sigmoid-output">Sigmoid output</h2>
+
+<p>Some other students from the course use onehot encoded targets and use a softmax as their final layer. I instead just use a sigmoid, where a value close to 0 means that the network think the current image is a cat, and a value close to 1 for a dog.</p>
+
+<p>Is there any difference in term of optimization by using this different views ? I am not sure.</p>
+
+<p>Also in Yann Lecun’s <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf">efficient backprop</a> paper some tricks are mentionned to improve the sigmoid such as choosing target value not where the sigmoid saturates but at points where the second derivative is highest. I have not seen any more litterature that mention this trick but it is worth trying.</p>
+
+<h2 id="valid-error">Valid error</h2>
+
+<p>My validation error is computed using the same data pipeline that involves taking a random crop of the image. This can go wrong if the random crop selected does not contain a relevant part of the image for the cats/dogs task.</p>
+
+
+
+
+    </article>
+    <span class="print-footer">Cats and dogs - Some better results - March 17, 2016 - Thomas George</span>
+    <footer>
+  <hr class="slender">
+<div class="credits">
+<span>&copy; 2019 
+  
+		<a href="mailto:tfjgeorge [at] gmail [dot]">Thomas George</a></span></br> <br>    
+    
+
+<span>Created with <a href="//jekyllrb.com">Jekyll</a> and the theme <a href="//github.com/sdruskat/tufte-css-jekyll">tufte-css-jekyll</a>.</span> 
+</div>  
+</footer>
+    
+      <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-99149577-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

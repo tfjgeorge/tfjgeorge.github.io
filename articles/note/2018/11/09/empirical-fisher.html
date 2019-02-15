@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>What is the empirical Fisher ?</title>
+  <meta name="description" content="Some recent papers mention that they use the inverse of the "empirical Fisher" as a preconditioner. The main reason is its simplicity of use since it only re...">
+
+  <!-- Google Fonts loaded here depending on setting in _data/options.yml true loads font, blank does not-->
+  
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    styles: {
+  	'.MathJax_Preview' : { color: 'black' }
+    }
+  });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <link rel="stylesheet" type="text/css" href="/css/latex.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="/articles/note/2018/11/09/empirical-fisher.html">
+
+  <link rel="alternate" type="application/rss+xml" title="A research blog about the optimization of neural networks" href="/feed.xml" />
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+	
+		<h1 class="header-title"><a href="/">A research blog about the optimization of neural networks</a></h1>
+		
+			<h2 class="header-subtitle">by Thomas George</h2>
+		
+	
+
+    <nav class="group">
+	
+	
+		
+		    
+		      <a href="/">Home</a>
+		    
+	    
+  	
+		
+  	
+		
+  	
+		
+  	
+		
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>What is the empirical Fisher ?</h1>
+<p class="subtitle">November 9, 2018</p>
+
+<p class="Indented">
+Some recent papers mention that they use the inverse of the "empirical Fisher" as a preconditioner. The main reason is its simplicity of use since it only requires gradients of the loss with respect to the parameters for each individual example. These are the same gradients as the ones we use to estimate our expected gradient when using SGD, as opposed to the true Fisher used in natural gradient, where the gradients that we need are gradients sampled from the distribution represented by our neural network.
+</p>
+<p class="Indented">
+The update using the "empirical Fisher" is:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{eqnarray*}
+\theta & \leftarrow & \theta-\eta\left(\underbrace{\mathbb{E}\left[\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\right]}_{C}+\epsilon\mathbf{I}\right)^{-1}\underbrace{\mathbb{E}\left[\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right]}_{g}
+\end{eqnarray*}
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+Where <span class="MathJax_Preview"><script type="math/tex">
+g
+</script>
+</span> is often estimated using its minibatch estimate, and <span class="MathJax_Preview"><script type="math/tex">
+C
+</script>
+</span> is the (uncentered) covariance of the gradients, also estimated using a minibatch, or a running average. <span class="MathJax_Preview"><script type="math/tex">
+\eta
+</script>
+</span> is the learning rate, and <span class="MathJax_Preview"><script type="math/tex">
+\epsilon
+</script>
+</span> is a Tikhonov damping parameter.
+</p>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> What problem are we solving when using this update?
+</h1>
+<p class="Unindented">
+<b>Claim</b>: This update is solution to the following problem, up to a second order approximation:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+
+\text{min}_{\Delta\theta}L\left(\theta+\Delta\theta\right)\text{ such that }\mathbb{E}\left[\left(\Delta\ell\left(x,\theta\right)\right)^{2}\right]=c
+
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+Where we defined <span class="MathJax_Preview"><script type="math/tex">
+\Delta\ell\left(x,\theta\right)=\ell\left(x,\theta+\Delta\theta\right)-\ell\left(x,\theta\right)
+</script>
+</span>, and <span class="MathJax_Preview"><script type="math/tex">
+c
+</script>
+</span> is a predefined scalar constant.
+</p>
+<p class="Indented">
+<i>Proof: </i>We start by writing the first order Taylor series expansion of <span class="MathJax_Preview"><script type="math/tex">
+\ell\left(x,\theta+\Delta\theta\right)
+</script>
+</span>:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{eqnarray*}
+\Delta\ell\left(x,\theta\right) & = & \left(\ell\left(x,\theta\right)+\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta+o\left(\left\Vert \Delta\theta\right\Vert _{2}\right)\right)-\ell\left(x,\theta\right)\\
+ & = & \left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta+o\left(\left\Vert \Delta\theta\right\Vert _{2}\right)
+\end{eqnarray*}
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+Where <span class="MathJax_Preview"><script type="math/tex">
+o\left(\left\Vert \Delta\theta\right\Vert _{2}\right)
+</script>
+</span> hides the higher order terms. It is a function such that <span class="MathJax_Preview"><script type="math/tex">
+\lim_{x\rightarrow0}\frac{o\left(x\right)}{x}=0
+</script>
+</span>, or to put it into words, it will be negligible compared to the first order term as long as <span class="MathJax_Preview"><script type="math/tex">
+\left\Vert \Delta\theta\right\Vert _{2}
+</script>
+</span> is not too big.
+</p>
+<p class="Indented">
+By replacing in the constraint we obtain:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{eqnarray*}
+\mathbb{E}\left[\left(\Delta\ell\left(x,\theta\right)\right)^{2}\right] & = & \mathbb{E}\left[\left(\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta+o\left(\left\Vert \Delta\theta\right\Vert _{2}\right)\right)^{2}\right]\\
+ & = & \mathbb{E}\left[\left(\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta\right)^{2}\right]+o\left(\left\Vert \Delta\theta\right\Vert _{2}^{2}\right)
+\end{eqnarray*}
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+In the second line we have hidden the cross product in <span class="MathJax_Preview"><script type="math/tex">
+o\left(\left\Vert \Delta\theta\right\Vert _{2}^{2}\right)
+</script>
+</span>.
+</p>
+<p class="Indented">
+We now remark that we can rewrite:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{eqnarray*}
+\mathbb{E}\left[\left(\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta\right)^{2}\right] & = & \mathbb{E}\left[\left(\Delta\theta^{\top}\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)\right)\left(\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\Delta\theta\right)\right]\\
+ & = & \Delta\theta^{\top}\mathbb{E}\left[\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\left(\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right)^{\top}\right]\Delta\theta\\
+ & = & \Delta\theta^{\top}C\Delta\theta
+\end{eqnarray*}
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+And so our minimization problem becomes:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+
+\text{min}_{\Delta\theta}L\left(\theta+\Delta\theta\right)\text{ such that }\Delta\theta^{\top}C\Delta\theta=c
+
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+Which can be solved e.g. using Lagrange multipliers, and we obtain the update:
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{eqnarray*}
+\Delta\theta^{*} & = & -\eta\left(C+\epsilon\mathbf{I}\right)^{-1}\mathbb{E}\left[\frac{\partial\ell\left(x,\theta\right)}{\partial\theta}\right]
+\end{eqnarray*}
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+Where <span class="MathJax_Preview"><script type="math/tex">
+\eta
+</script>
+</span> is a scalar that we usually define as being the (constant) learning rate, but to be more precise it should be set so that the constraint <span class="MathJax_Preview"><script type="math/tex">
+\Delta\theta^{\top}C\Delta\theta=c
+</script>
+</span> is enforced. The role of <span class="MathJax_Preview"><script type="math/tex">
+\epsilon
+</script>
+</span> is to make sure that regardless of the spectrum of <span class="MathJax_Preview"><script type="math/tex">
+C
+</script>
+</span>, the update will not get too big, and make our second order approximation wrong.
+</p>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Discussion
+</h1>
+<p class="Unindented">
+What does it mean to be solving this minimization problem?
+</p>
+<p class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+
+\text{min}_{\Delta\theta}L\left(\theta+\Delta\theta\right)\text{ such that }\mathbb{E}\left[\left(\Delta\ell\left(x,\theta\right)\right)^{2}\right]=c
+
+</script>
+
+</span>
+
+</p>
+<p class="Indented">
+First, it means that we measure progress in the space of our loss function. It has the desirable effect of making this update invariant by reparametrization of the network, as long as <span class="MathJax_Preview"><script type="math/tex">
+\epsilon
+</script>
+</span> is kept small.
+</p>
+<p class="Indented">
+Second, it means that we will encourage all examples to have their loss reduced by a similar amount, on average <span class="MathJax_Preview"><script type="math/tex">
+\sqrt{c}
+</script>
+</span>. Is this something desirable or not ? I don’t know but I am open to your suggestions!
+</p>
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script>
+  var disqus_config = function () {
+  this.page.url = 'https://tfjgeorge.github.io/articles/note/2018/11/09/empirical-fisher.html';
+  this.page.identifier = '/articles/note/2018/11/09/empirical-fisher';
+  this.callbacks.onReady = [function() { $(window).trigger('resize'); }];
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://tfjgeorge.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </article>
+    <span class="print-footer">What is the empirical Fisher ? - November 9, 2018 - Thomas George</span>
+    <footer>
+  <hr class="slender">
+<div class="credits">
+<span>&copy; 2019 
+  
+		<a href="mailto:tfjgeorge [at] gmail [dot]">Thomas George</a></span></br> <br>    
+    
+
+<span>Created with <a href="//jekyllrb.com">Jekyll</a> and the theme <a href="//github.com/sdruskat/tufte-css-jekyll">tufte-css-jekyll</a>.</span> 
+</div>  
+</footer>
+    
+      <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-99149577-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

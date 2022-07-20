@@ -14,7 +14,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-I am a Phd candidate at Mila in Québec, under the joint supervision of [Pascal Vincent](https://ai.facebook.com/people/pascal-vincent/) and [Guillaume Lajoie](https://www.guillaumelajoie.com/).
+I am a PhD candidate at Mila in Québec, under the joint supervision of [Pascal Vincent](https://ai.facebook.com/people/pascal-vincent/) and [Guillaume Lajoie](https://www.guillaumelajoie.com/).
 
 My research is focused on understanding the generalization properties of deep neural networks and develop efficient training techniques. I am interested in trying to build bridges between deep learning training mechanisms and more established machine learning techniques such as linear models and ensemble methods.
 

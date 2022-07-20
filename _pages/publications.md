@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
-description: publications and pre-prints
+description: publications and pre-prints, also see my <a href='https://scholar.google.com/citations?user=pc3_ujYAAAAJ'>google scholar</a> profile
 years: [2021, 2020, 2018]
 nav: true
 nav_order: 2

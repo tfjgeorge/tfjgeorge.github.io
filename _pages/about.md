@@ -16,7 +16,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-I am a scientific researcher at [Orange Innovation](https://hellofuture.orange.com/fr/) in the Responsible and Impactful AI program.
+I am a scientific researcher at [Orange Innovation](https://hellofuture.orange.com/fr/) in the *Responsible and Impactful AI* program.
 
 My research interests include:
  - Generalization and explainability in deep neural networks

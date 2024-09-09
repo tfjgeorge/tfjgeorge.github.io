@@ -10,10 +10,9 @@ profile:
   image_circular: false # crops the image to make it circular
   address:
 
-news: true  # includes a list of news items
-latest_posts: true  # includes a list of the newest posts
+news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true  # includes social icons at the bottom of the page
+social: true # includes social icons at the bottom of the page
 ---
 
 I am a scientific researcher at [Orange Innovation](https://hellofuture.orange.com/fr/) in the *Responsible and Impactful AI* program.

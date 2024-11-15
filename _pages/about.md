@@ -22,7 +22,7 @@ My research interests include:
  - Weakly supervised learning
  - Causality in machine learning
 
-I did my PhD at [Mila](https://mila.quebec/) in Québec, under the joint supervision of [Pascal Vincent](https://ai.facebook.com/people/pascal-vincent/) and [Guillaume Lajoie](https://www.guillaumelajoie.com/), followed by a post-doc in [Vincent Lemaire](http://vincentlemaire-labs.fr/)'s group.
+I did my PhD at [Mila](https://mila.quebec/) in Québec, under the joint supervision of [Pascal Vincent](https://ai.facebook.com/people/pascal-vincent/) and [Guillaume Lajoie](https://www.guillaumelajoie.com/), followed by a post-doc in [Vincent Lemaire](http://vincentlemaire-labs.fr/)'s group at [Orange Innovation](https://hellofuture.orange.com/fr/).
 Previously, I was a multiple hats engineer at [Eco-Adapt](https://www.eco-adapt.com/?lang=fr) where I worked on time series from industrial sensors, in order to implement automated algorithms to make sense of these data streams. Prior to that I studied at [École des Mines](https://www.minesparis.psl.eu/).
 
 Here is my [academic CV](/assets/pdf/thomas_george_academic_cv.pdf).

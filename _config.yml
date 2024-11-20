@@ -99,6 +99,7 @@ wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: # work page URL
 x_username: tfjgeorge # your X handle
+bluesky_url: tfjgeorge.bsky.social
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 

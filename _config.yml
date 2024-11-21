@@ -98,13 +98,13 @@ whatsapp_number: # your WhatsApp number (full phone number in international form
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: # work page URL
-x_username: tfjgeorge # your X handle
 bluesky_url: tfjgeorge.bsky.social
+x_username: tfjgeorge # your X handle
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
 contact_note: >
-  You can reach out to me by email or twitter.
+  You can reach out to me by email or bluesky.
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification

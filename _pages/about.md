@@ -15,7 +15,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I am a researcher at [Orange Research](https://hellofuture.orange.com/) in the *Responsible and Impactful AI* and *Machine learning foundations* research groups.
+I am a researcher at [Orange Research](https://hellofuture.orange.com/) in the *Trustworthy and Sustainable AI* and *Machine learning Foundations* research groups.
 
 My research interests include:
  - Generalization and explainability of deep neural networks
